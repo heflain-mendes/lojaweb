@@ -9,6 +9,10 @@
   <body>
         <div class="container">
 <?php
-    // tratamento do menu para cada usuário!
-    require_once "menu.inc.php";
+    session_start();
+    $tipo = "C";
+    if(isset($_SESSION['cliente'])){
+      $tipo = $_SESSION['cliente']['tipo'];      
+    }
+    require_once "menu" . $tipo . ".inc.php";
 ?>          

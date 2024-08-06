@@ -2,7 +2,7 @@
 require_once "../dao/clienteDAO.inc.php";
 $clienteDao = new ClienteDao();
 
-$opc = $_REQUEST["pOpcao"];
+$opc = (int)$_REQUEST["pOpcao"];
 
 if($opc == 1){
     //recupero as informações do login
@@ -19,5 +19,11 @@ if($opc == 1){
         header("Location: ../views/exibirProdutos.php");
     }else{
         header("Location: ../views/formLogin.php?erro=1");
+    }
+} else{
+    if($opc == 2){
+        session_start();
+        unset($_SESSION["cliente"]);
+        header("Location: ../views/index.php");
     }
 }
