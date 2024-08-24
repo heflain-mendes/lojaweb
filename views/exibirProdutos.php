@@ -1,5 +1,15 @@
 <?php        
-      require_once 'includes/cabecalho.inc.php';   
+      require_once "../classes/produto.inc.php";
+      require_once "../utils/funcoesUteis.php";
+      require_once "includes/cabecalho.inc.php";
+      
+      $produtos = [];
+      
+      if(isset($_SESSION["produtos"])){
+            $produtos = $_SESSION["produtos"];
+      }else{
+            header("Location: ../controlers/controllerProduto.php?opcao=2");
+      }
 ?>
 <p>
 <h1 class="text-center">Produtos do estoque</h1>
@@ -12,7 +22,7 @@
                 <th>Nome</th>
                 <th>Descrição</th>
                 <th>Data de Fabricação</th>
-                <th>Preço unitário</th>
+                <th>Preço unitário<br>(R$)</th>
                 <th>Em Estoque</th>
                 <th>Fabricante</th>
                 <th>Operação</th>
@@ -20,19 +30,19 @@
       </thead>
       <tbody class="table-group-divider">
       <?php
-         // percurso aqui
+            foreach ($produtos as $item) {
                echo "<tr align='center'>";
-               echo "<td>"."ID 0"."</td>";
-               echo "<td><strong>"."NOME"."</strong></td>";
-               echo "<td>"."RESUMO"."</td>";
-               echo "<td>"."DATA FORMATADA"."</td>";
-               echo "<td>"."R$ PREÇO"."</td>";
-               echo "<td>"."ESTOQUE"."</td>";
-               echo "<td>"."FABRICANTE"."</td>";
-               echo "<td><a href='#' class='btn btn-success btn-sm'>A</a> ";
-               echo "<a href='#' class='btn btn-danger btn-sm'>X</a></td>";
+               echo "<td>". $item->getProdutoId() ."</td>";
+               echo "<td><strong>". $item->getNome() ."</strong></td>";
+               echo "<td>". $item->getResumo() ."</td>";
+               echo "<td>". formatarData($item->getDataFabricacao()) ."</td>";
+               echo "<td>". number_format($item->getPreco(), 2, ",") ."</td>";
+               echo "<td>". $item->getEstoque() ."</td>";
+               echo "<td>". $item->getNomeFabricante() ."</td>";
+               echo "<td><a href='../controlers/controllerProduto.php?opcao=4&id=".$item->getProdutoId()."' class='btn btn-success btn-sm'>A</a> ";
+               echo "<a href='../controlers/controllerProduto.php?opcao=3&id=".$item->getProdutoId()."' class='btn btn-danger btn-sm'>X</a></td>";
                echo "</tr>";
-         
+            }
       ?>
       </tbody>  
 </table>

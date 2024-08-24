@@ -1,0 +1,73 @@
+<?php
+require_once "../dao/produtoDAO.inc.php";
+require_once "../classes/produto.inc.php";
+$opc = null;
+
+if(isset($_REQUEST["opcao"])){
+    $opc = $_REQUEST["opcao"];
+}
+
+$produtoDAO = new ProdutoDAO();
+
+switch ($opc) {
+    case 1: //insert
+        $produto = new Produto(
+            $_REQUEST['pNome'],
+            strtotime($_REQUEST['pDataFabricacao']),
+            $_REQUEST['pPreco'],
+            $_REQUEST['pEstoque'],
+            $_REQUEST['pDescricao'],
+            $_REQUEST['pResumo'],
+            $_REQUEST['pReferencia'],
+            $_REQUEST['pFabricante']
+        );  
+        $produtoDAO->incluirProduto($produto);
+
+        header("Location: controllerProduto.php?opcao=2");
+    break;
+    case 2: //get all
+        session_start();
+        $_SESSION["produtos"] = $produtoDAO->getProdutos();
+
+        header("Location: ../views/exibirProdutos.php");    
+    break;
+    case 3: //delete
+        $id = $_REQUEST['id'];
+        $produtoDAO->delete($id);
+
+        header("Location: controllerProduto.php?opcao=2");
+    break;
+
+    case 4: //get by id
+        $id = (int)$_REQUEST['id'];
+        $produto = $produtoDAO->getProduto($id);
+
+        if(isset($produto)){
+            session_start();
+            $_SESSION["produto"] = $produto;
+
+            header("Location: ../controlers/controllerFabricante.php?opcao=3");
+        }
+    break;
+
+    case 5: //update
+        $dataFabricacao = strtotime($_REQUEST['pDataFabricacao']);
+        $produto = new Produto(
+            $_REQUEST['pNome'],
+            $dataFabricacao,
+            $_REQUEST['pPreco'],
+            $_REQUEST['pEstoque'],
+            $_REQUEST['pDescricao'],
+            $_REQUEST['pResumo'],
+            $_REQUEST['pReferencia'],
+            $_REQUEST['pFabricante']
+        );
+
+        $produto->setProdutoId($_REQUEST['pId']);
+        $produtoDAO->atualizarProduto($produto);
+
+        header("Location: ../controlers/controllerProduto.php?opcao=2");
+    break;
+    default:
+        break;
+}

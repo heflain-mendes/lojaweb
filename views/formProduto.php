@@ -1,11 +1,13 @@
 <?php
-    require_once "includes/cabecalho.inc.php";       
+    require_once "includes/cabecalho.inc.php";  
+    
+    $fabricantes = $_SESSION["fabricantes"];
 ?>
 <p>
 <h1 class="text-center">Inclusão de produto</h1>
 <p> 
   
-<form class="row g-3" action="#" method="post">
+<form class="row g-3" action="../controlers/controllerProduto.php" method="post">
   <div class="col-md-3">
     <label for="pReferencia" class="form-label">Nº Referencia</label>
     <input type="text" class="form-control" name="pReferencia">
@@ -25,8 +27,13 @@
   <div class="col-md-3">
     <label for="pFabricante" class="form-label">Fabricante</label>
     <select name="pFabricante" class="form-select">
-      <option selected value="0">Escolha...</option>
-      <option selected value="1">Fabricante 1</option>
+    <option selected value="0">Escolha...</option>
+      <?php
+      foreach ($fabricantes as $f) {
+        echo "<option value=$f->codigo>$f->nome</option>";
+      }
+      ?>
+      
     </select>
   </div>
   <div class="col-md-2">
