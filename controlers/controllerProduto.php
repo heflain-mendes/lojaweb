@@ -22,6 +22,7 @@ switch ($opc) {
             $_REQUEST['pFabricante']
         );  
         $produtoDAO->incluirProduto($produto);
+        uploadFotos($_REQUEST['pReferencia']);
 
         header("Location: controllerProduto.php?opcao=2");
     break;
@@ -33,8 +34,8 @@ switch ($opc) {
     break;
     case 3: //delete
         $id = $_REQUEST['id'];
+        deleteFotos($produtoDAO->getProduto($id)->getReferencia());
         $produtoDAO->delete($id);
-
         header("Location: controllerProduto.php?opcao=2");
     break;
 
@@ -62,12 +63,33 @@ switch ($opc) {
             $_REQUEST['pReferencia'],
             $_REQUEST['pFabricante']
         );
-
         $produto->setProdutoId($_REQUEST['pId']);
+
         $produtoDAO->atualizarProduto($produto);
 
         header("Location: ../controlers/controllerProduto.php?opcao=2");
     break;
     default:
         break;
+}
+
+function uploadFotos($ref){
+    if(isset($_FILES["imagem"])){
+        $imagem = $_FILES["imagem"];
+        $nome_temporario = $_FILES["imagem"]['tmp_name'];
+
+        copy($nome_temporario, "../views/imagens/produtos/$ref.jpg");
+    }else{
+        echo "Você não realizou o upload de forma satisfatória.";
+    }
+}
+
+function deleteFotos($ref){
+    $arq = "../views/imagens/produtos/$ref.jpg";
+
+    if(file_exists($arq)){
+        if(!unlink($arq)){
+            echo "Não foi possível deletar o arquivo";
+        }
+    }
 }

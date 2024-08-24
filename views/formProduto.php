@@ -1,13 +1,17 @@
 <?php
     require_once "includes/cabecalho.inc.php";  
     
-    $fabricantes = $_SESSION["fabricantes"];
+    if(isset($_SESSION["fabricantes"])){
+      $fabricantes = $_SESSION["fabricantes"];
+    }else{
+      header("Location: index.php");
+    }
 ?>
 <p>
 <h1 class="text-center">Inclusão de produto</h1>
 <p> 
   
-<form class="row g-3" action="../controlers/controllerProduto.php" method="post">
+<form class="row g-3" action="../controlers/controllerProduto.php" method="post" enctype="multipart/form-data">
   <div class="col-md-3">
     <label for="pReferencia" class="form-label">Nº Referencia</label>
     <input type="text" class="form-control" name="pReferencia">

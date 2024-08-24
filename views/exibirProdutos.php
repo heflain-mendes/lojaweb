@@ -8,7 +8,7 @@
       if(isset($_SESSION["produtos"])){
             $produtos = $_SESSION["produtos"];
       }else{
-            header("Location: ../controlers/controllerProduto.php?opcao=2");
+            header("Location: index.php");
       }
 ?>
 <p>
