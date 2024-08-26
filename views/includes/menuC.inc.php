@@ -8,7 +8,7 @@
 
     <li><a href="index.php" class="nav-link px-2 link-secondary">Home</a></li>
 
-    <li><a href="#" class="nav-link px-2 link-secondary">Produtos da Loja</a></li>
+    <li><a href="../controlers/controllerProduto.php?opcao=6" class="nav-link px-2 link-secondary">Produtos da Loja</a></li>
 
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle link-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -19,7 +19,7 @@
         <li>
           <hr class="dropdown-divider">
         </li>
-        <li><a class="dropdown-item" href="#">Show Room</a></li>
+        <li><a class="dropdown-item" href="../controlers/controllerProduto.php?opcao=6">Show Room</a></li>
       </ul>
     </li>
 

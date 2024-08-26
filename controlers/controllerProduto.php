@@ -3,7 +3,7 @@ require_once "../dao/produtoDAO.inc.php";
 require_once "../classes/produto.inc.php";
 $opc = null;
 
-if(isset($_REQUEST["opcao"])){
+if (isset($_REQUEST["opcao"])) {
     $opc = $_REQUEST["opcao"];
 }
 
@@ -20,36 +20,38 @@ switch ($opc) {
             $_REQUEST['pResumo'],
             $_REQUEST['pReferencia'],
             $_REQUEST['pFabricante']
-        );  
+        );
         $produtoDAO->incluirProduto($produto);
         uploadFotos($_REQUEST['pReferencia']);
 
         header("Location: controllerProduto.php?opcao=2");
-    break;
+        break;
     case 2: //get all
+    case 6:
         session_start();
         $_SESSION["produtos"] = $produtoDAO->getProdutos();
 
-        header("Location: ../views/exibirProdutos.php");    
-    break;
+        if ($opc == 2) header("Location: ../views/exibirProdutos.php");
+        else header("Location: ../views/produtosVenda.php");
+        break;
     case 3: //delete
         $id = $_REQUEST['id'];
         deleteFotos($produtoDAO->getProduto($id)->getReferencia());
         $produtoDAO->delete($id);
         header("Location: controllerProduto.php?opcao=2");
-    break;
+        break;
 
     case 4: //get by id
         $id = (int)$_REQUEST['id'];
         $produto = $produtoDAO->getProduto($id);
 
-        if(isset($produto)){
+        if (isset($produto)) {
             session_start();
             $_SESSION["produto"] = $produto;
 
             header("Location: ../controlers/controllerFabricante.php?opcao=3");
         }
-    break;
+        break;
 
     case 5: //update
         $dataFabricacao = strtotime($_REQUEST['pDataFabricacao']);
@@ -68,27 +70,29 @@ switch ($opc) {
         $produtoDAO->atualizarProduto($produto);
 
         header("Location: ../controlers/controllerProduto.php?opcao=2");
-    break;
+        break;
     default:
         break;
 }
 
-function uploadFotos($ref){
-    if(isset($_FILES["imagem"])){
+function uploadFotos($ref)
+{
+    if (isset($_FILES["imagem"])) {
         $imagem = $_FILES["imagem"];
         $nome_temporario = $_FILES["imagem"]['tmp_name'];
 
         copy($nome_temporario, "../views/imagens/produtos/$ref.jpg");
-    }else{
+    } else {
         echo "Você não realizou o upload de forma satisfatória.";
     }
 }
 
-function deleteFotos($ref){
+function deleteFotos($ref)
+{
     $arq = "../views/imagens/produtos/$ref.jpg";
 
-    if(file_exists($arq)){
-        if(!unlink($arq)){
+    if (file_exists($arq)) {
+        if (!unlink($arq)) {
             echo "Não foi possível deletar o arquivo";
         }
     }

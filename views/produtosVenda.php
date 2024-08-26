@@ -1,45 +1,33 @@
-
 <?php
-      include_once 'includes/cabecalho.inc.php';
+include_once '../classes/produto.inc.php';
+include_once 'includes/cabecalho.inc.php';
+
+$produtos = $produtoDAO->getProdutos();
 ?>
 <h1 class="text-center">Show room de produtos</h1>
-<p> 
+<p>
 
 <div class="row row-cols-1 row-cols-md-5 g-4">
 
-<?php
-  //percurso inicia aqui  
-?>
+  <?php
+  foreach ($produtos as $p) {
+  ?>
 
-<div class="col">
+  <div class="col">
     <div class="card">
-      <img src="imagens/produtos/produto.jpg" class="card-img-top" alt="...">
+      <img src="imagens/produtos/<?=$p->getReferencia()?>.jpg" class="card-img-top" alt="<?=$p->getDescricao()?>">
       <div class="card-body">
-        <h5 class="card-title">NOME</h5>
-        <p class="card-text">RESUMO</p>
-        <h6 class="card-text text-end">Marca: FABRICANTE</h6>
-        <h4 class="card-title">R$ 000,00</h4>
-        <div class="text-end"><?php echo "<a href='#' class='btn btn-danger'>Comprar</a>" ?></div>        
+        <h5 class="card-title"><?=$p->getNome()?></h5>
+        <p class="card-text"><?=$p->getResumo()?></p>
+        <h6 class="card-text text-end">Marca: <?=$p->getNomeFabricante()?></h6>
+        <h4 class="card-title">R$ <?=number_format($p->getPreco(), 2, ',')?></h4>
+        <div class="text-end"><?php echo "<a href='#' class='btn btn-danger'>Comprar</a>" ?></div>
       </div>
     </div>
-</div>
-
-<!-- esse card adicional somente para representar o loop -->
-<div class="col">
-    <div class="card">
-      <img src="imagens/produtos/produto.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">NOME</h5>
-        <p class="card-text">RESUMO</p>
-        <h6 class="card-text text-end">Marca: FABRICANTE</h6>
-        <h4 class="card-title">R$ 000,00</h4>
-        <div class="text-end"><?php echo "<a href='#' class='btn btn-danger'>Comprar</a>" ?></div>        
-      </div>
-    </div>
-</div>
+  </div>
 
   <?php
-    // percurso termina aqui
+  }
   ?>
 </div>
 
