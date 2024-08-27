@@ -31,7 +31,7 @@
     <li><a href="#" class="nav-link px-2 link-dark">Contato</a></li>
 
     <li>
-      <a class="nav-link px-2 link-dark" href="#">
+      <a class="nav-link px-2 link-dark" href="exibirCarrinho.php">
         <img src="imagens/cart3.png" alt="">
       </a>
     </li>
