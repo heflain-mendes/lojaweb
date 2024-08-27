@@ -5,11 +5,7 @@
       
       $produtos = [];
       
-      if(isset($_SESSION["produtos"])){
-            $produtos = $_SESSION["produtos"];
-      }else{
-            header("Location: index.php");
-      }
+      header("Location: index.php");
 ?>
 <p>
 <h1 class="text-center">Produtos do estoque</h1>
