@@ -18,13 +18,61 @@ switch ($opcao) {
         $item = new Item($prod);
 
         session_start();
-        if(!isset($_SESSION["carrinho"])){
-            $_SESSION["carrinho"] = [];
+        $carrinho = $_SESSION["carrinho"];
+        if(!isset($carrinho)){
+            $carrinho = [];
         }
 
-        $_SESSION["carrinho"][] = $item;
+        $index = array_search2($item->getProduto()->getProdutoId(), $carrinho);
+        if($index != -1){
+            $key = array_search($item, $carrinho);
 
+            $carrinho[$key]->setQtd();
+            $carrinho[$key]->setValorItem();
+        }else{
+            $carrinho[] = $item;
+        }
+
+        $_SESSION["carrinho"] = $carrinho;
         header("Location: ../views/exibirCarrinho.php");
         break;
+    case 2:
+        $index = (int)$_REQUEST['index'];
+
+        session_start();
+        $carrinho = $_SESSION['carrinho'];
+
+        unset($carrinho[$index]);
+        sort($carrinho);
+        $_SESSION["carrinho"] = $carrinho;
+
+        header("Location: controllerCarrinho.php?opcao=4");
+    break;
+    case 3:
+        session_start();
+        unset($_SESSION["carrinho"]);
+        header("Location: controllerProduto.php?opcao=6");
+        break;
+    case 4:
+        session_start();
+
+        if(!isset($_SESSION['carrinho']) || sizeof($_SESSION["carrinho"])==0){
+            header("Location: ../views/exibirCarrinho.php?status=1");
+        }else{
+            header("Location: ../views/exibirCarrinho.php");
+        }
+    break;
+}
+
+function array_search2($chave, $vetor) {
+    $index = -1;
+    for($i=0; $i<count($vetor);$i++){
+        if($chave == $vetor[$i]->getProduto()->getProdutoId()){
+            $index = $i;
+            break;
+        }
+    }
+
+    return $index;
 }
 ?>

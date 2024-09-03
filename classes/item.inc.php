@@ -16,14 +16,14 @@ class Item {
     }
 
     public function setValorItem() {
-        $this->valorItem = $this->qtd + $this->produto->getPreco();
+        $this->valorItem = $this->qtd * $this->produto->getPreco();
     }
 
     public function getQtd(): int {
         return $this->qtd;
     }
 
-    public function setqtd() {
+    public function setQtd() {
         $this->qtd++;
     }
 
