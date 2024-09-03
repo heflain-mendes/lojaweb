@@ -62,6 +62,18 @@ switch ($opcao) {
             header("Location: ../views/exibirCarrinho.php");
         }
     break;
+    case 5:
+        $total = $_REQUEST["total"];
+        session_start();
+        $_SESSION["total"] = $total;
+
+        if(isset($_SESSION["cliente"])){
+            header("Location: ../views/dadosCompra.php");
+        }else{
+            header("Location: ../views/formLogin.php"); 
+        }
+
+        break;
 }
 
 function array_search2($chave, $vetor) {

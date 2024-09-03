@@ -1,17 +1,22 @@
 <?php 
+      require_once "../classes/produto.inc.php";
+      require_once "../classes/item.inc.php";
       require_once "includes/cabecalho.inc.php";
-
+      
+      $cliente = $_SESSION["cliente"];
+      $carrinho = $_SESSION["carrinho"];
+      $total = $_SESSION["total"];
  ?>
 
 <h1 class="text-center">Dados do cliente</h1>
 
 <p>&nbsp;
 <div style="font-size: 1.25rem;">
-      <p><b>Nome:</b> Nome do cliente
-      <p><b>CPF:</b> CPF do cliente
-      <p><b>Endereço Completo:</b> Endereço com todos os campos.
-      <p><b>Telefone:</b> Telefone do cliente
-      <p><b>Email:</b> E-mail do cliente
+      <p><b>Nome:</b> <?=$cliente["nome"]?>
+      <p><b>CPF:</b> <?=$cliente["cpf"]?>
+      <p><b>Endereço Completo:</b> <?=$cliente["logradouro"] . " " . $cliente["cidade"]."-".$cliente["estado"]?>
+      <p><b>Telefone:</b> <?=$cliente["telefone"]?>
+      <p><b>Email:</b> <?=$cliente["email"]?>
       </font>
       <p><hr><p>&nbsp;
 </div>
@@ -34,21 +39,21 @@
       </thead>
       <tbody class="table-group-divider">
 <?php
-          // percurso do carrinho aqui!
+          foreach ($carrinho as $c) {
 
 ?>
             <tr class="align-middle" style="text-align: center">
-                  <td><img src="imagens/produtos/produto.jpg" width="100" height="100" border="0"></td>
-                  <td>ID 0</td>
-                  <td>Nome aqui</td>
-                  <td>Fabricante XXX</td>
-                  <td>R$ 000,00</td>
-                  <td>N</td>
-                  <td>R$ N * 000,00</td>
+                  <td><img src="imagens/produtos/<?=$c->produto->getReferencia()?>.jpg" width="100" height="100" border="0"></td>
+                  <td><?=$c->produto->getReferencia()?></td>
+                  <td><?=$c->produto->getNome()?></td>
+                  <td><?=$c->produto->getNomeFabricante()?></td>
+                  <td>R$ <?=$c->produto->getPreco()?></td>
+                  <td><?=$c->qtd?></td>
+                  <td>R$ <?=$c->valorItem?></td>
             </tr>
-          <!-- percurso termina aqui -->
+          <?php } ?>
             
-          <tr align="right"><td colspan="7"><font face="Verdana" size="4" color="red"><b>Valor Total = R$ total</b></font></td></tr>
+          <tr align="right"><td colspan="7"><font face="Verdana" size="4" color="red"><b>Valor Total = R$ <?=$total?></b></font></td></tr>
           </table>
           <div class="container text-center">
             <div class="row">
