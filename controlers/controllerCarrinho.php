@@ -70,7 +70,7 @@ switch ($opcao) {
         if(isset($_SESSION["cliente"])){
             header("Location: ../views/dadosCompra.php");
         }else{
-            header("Location: ../views/formLogin.php"); 
+            header("Location: ../views/formLogin.php?em_compra=1"); 
         }
 
         break;

@@ -1,4 +1,12 @@
-<?php require_once "includes/cabecalho.inc.php" ?>
+<?php require_once "includes/cabecalho.inc.php"; 
+
+$em_compra = 0;
+
+if(isset($_REQUEST['em_compra'])){
+    $em_compra = (int)$_REQUEST['em_compra'];
+}
+
+?>
 
 <!-- CONTEUDO -->
 <h1 class="text-center">Login de Usuário</h1>
@@ -12,6 +20,7 @@
             <div class="card-body p-4 p-sm-5">
                 <h5 class="card-title text-center mb-5 fw-light fs-5">Entre com suas informações de Login</h5>
                 <form action="../controlers/controlerCliente.php" method="get">
+                    <input type="hidden" name="em_compra" value="<?= $em_compra ?>">
 
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="floatingInputEmail" placeholder="nome@exemplo.com" name="pEmail">

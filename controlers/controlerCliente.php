@@ -4,7 +4,7 @@ $clienteDao = new ClienteDao();
 
 $opc = (int)$_REQUEST["pOpcao"];
 
-if($opc == 1){
+if ($opc == 1) {
     //recupero as informações do login
     $email = $_REQUEST["pEmail"];
     $senha = $_REQUEST["pSenha"];
@@ -13,19 +13,26 @@ if($opc == 1){
     $cliente = $clienteDao->Autenticar($email, $senha);
 
     //verifica as credenciais correponde a algum cliente
-    if($cliente != null){
+    if ($cliente != null) {
         session_start();
         $_SESSION["cliente"] = $cliente;
-        if(isset($_SESSION["carrinho"]) && sizeof($_SESSION["carrinho"]) > 0 ){
-            header("Location: ../views/exibirCarrinho.php");
-        }else{    
-            header("Location: controllerProduto.php?opcao=6");
+        $emCompra = (int)$_REQUEST["em_compra"];
+
+        if ($emCompra == 1) {
+            header("Location: ../views/dadosCompra.php");
+        } else {
+
+            if (isset($_SESSION["carrinho"]) && sizeof($_SESSION["carrinho"]) > 0) {
+                header("Location: ../views/exibirCarrinho.php");
+            } else {
+                header("Location: controllerProduto.php?opcao=6");
+            }
         }
-    }else{
+    } else {
         header("Location: ../views/formLogin.php?erro=1");
     }
-} else{
-    if($opc == 2){
+} else {
+    if ($opc == 2) {
         session_start();
         unset($_SESSION["cliente"]);
         header("Location: ../views/index.php");
