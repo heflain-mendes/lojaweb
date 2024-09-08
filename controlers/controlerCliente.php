@@ -17,9 +17,9 @@ if($opc == 1){
         session_start();
         $_SESSION["cliente"] = $cliente;
         if(isset($_SESSION["carrinho"]) && sizeof($_SESSION["carrinho"]) > 0 ){
-            header("Location: ../views/dadosCompra.php");
+            header("Location: ../views/exibirCarrinho.php");
         }else{    
-            header("Location: ../controllerProduto.php?opcao=6");
+            header("Location: controllerProduto.php?opcao=6");
         }
     }else{
         header("Location: ../views/formLogin.php?erro=1");
