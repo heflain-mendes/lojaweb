@@ -19,7 +19,7 @@ if ($opc == 1) {
         $emCompra = (int)$_REQUEST["em_compra"];
 
         if ($emCompra == 1) {
-            header("Location: ../views/dadosCompra.php");
+            header("Location: controllerCarrinho.php?opcao=5");
         } else {
 
             if (isset($_SESSION["carrinho"]) && sizeof($_SESSION["carrinho"]) > 0) {
