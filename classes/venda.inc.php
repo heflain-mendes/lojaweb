@@ -12,10 +12,8 @@ final class venda
         return $this->$name;
     }
 
-    public function __set($name, $value) : self {
+    public function __set($name, $value) {
         $this->$name = $value;
-
-        return $this;
     }
 }
 

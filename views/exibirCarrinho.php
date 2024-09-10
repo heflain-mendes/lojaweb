@@ -67,12 +67,13 @@ $carrinho = $_SESSION["carrinho"];
                 <a class="btn btn-danger" role="button" href="../controlers/controllerCarrinho.php?opcao=3"><b>Esvaziar carrinho</b></a>
             </div>
             <div class="col">
-                <a class="btn btn-success" role="button" href="../controlers/controllerCarrinho.php?opcao=5&total=<?=$soma?>"><b>Finalizar compra</b></a>
+                <a class="btn btn-success" role="button" href="../controlers/controllerCarrinho.php?opcao=5"><b>Finalizar compra</b></a>
             </div>
         </div>
     </div>
 
 <?php
+    $_SESSION["total"] = $soma;
     }
     require_once 'includes/rodape.inc.php';
 ?>

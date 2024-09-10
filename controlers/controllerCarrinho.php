@@ -63,9 +63,7 @@ switch ($opcao) {
         }
     break;
     case 5:
-        $total = $_REQUEST["total"];
         session_start();
-        $_SESSION["total"] = $total;
 
         if(isset($_SESSION["cliente"])){
             header("Location: ../views/dadosCompra.php");

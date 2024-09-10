@@ -1,4 +1,5 @@
 <?php
+require_once "conexao.inc.php";
 require_once "../utils/funcoesUteis.php";
 require_once "../classes/produto.inc.php";
 require_once "../classes/item.inc.php";
@@ -13,16 +14,17 @@ final class vendaDAO
         $this->con = $c->getConexao();
     }
 
-    private function getIdVenda() {
-        return $this->con->query("select MAX(id_venda) as maior
-        from vendas");
+    private function getIdVenda()
+    {
+        $sql = $this->con->query("select MAX(id_venda) as maior from vendas");
 
         $row = $sql->fetch(PDO::FETCH_OBJ);
 
         return $row->maior;
     }
 
-    private function incluirItens($idVenda, $carrinho) {
+    private function incluirItens($idVenda, $carrinho)
+    {
         foreach ($carrinho as $item) {
             $sql = $this->con->prepare("insert into itens 
             (id_produto, quantidade, valorTotal, id_Venda)
@@ -30,14 +32,15 @@ final class vendaDAO
 
             $sql->bindValue(":idPub", $item->produto->getProdutoId());
             $sql->bindValue(":q", $item->getQtd());
+            $sql->bindValue(":val", $item->getValorItem());
             $sql->bindValue(":idV", $idVenda);
 
             $sql->execute();
-            
         }
     }
 
-    public function incluirVenda($venda, $carrinho){
+    public function incluirVenda($venda, $carrinho)
+    {
         $sql = $this->con->prepare("insert into vendas
         (cpf_cliente, dataVenda, valorTotal)
         values (:cpf, :data, :val)
@@ -52,5 +55,6 @@ final class vendaDAO
         $this->incluirItens($id, $carrinho);
     }
 }
+
 
 ?>
