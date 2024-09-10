@@ -20,9 +20,8 @@ switch ($opcao) {
         $tipo = $_REQUEST['pag'];
         unset($_SESSION['carrinho']);
 
-        if($tipo == 1){
-            //header("Location: ../views/boleto/meuBoleto.php");
-            echo "Boleto emitido";
+        if($tipo == "boleto"){
+            header("Location: ../views/boleto/meuBoleto.php");
         }else{
             echo "Validar compra com cartão";
         }
