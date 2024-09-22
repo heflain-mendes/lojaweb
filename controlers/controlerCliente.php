@@ -4,13 +4,14 @@ $clienteDao = new ClienteDao();
 
 $opc = (int)$_REQUEST["pOpcao"];
 
-if ($opc == 1) {
+switch( $opc ){
+    case 1; //Login
     //recupero as informações do login
     $email = $_REQUEST["pEmail"];
     $senha = $_REQUEST["pSenha"];
 
     //passo o email e senha para ser autenticado pelo clienteDao
-    $cliente = $clienteDao->Autenticar($email, $senha);
+    $cliente = $clienteDao->autenticar($email, $senha);
 
     //verifica as credenciais correponde a algum cliente
     if ($cliente != null) {
@@ -31,10 +32,59 @@ if ($opc == 1) {
     } else {
         header("Location: ../views/formLogin.php?erro=1");
     }
-} else {
-    if ($opc == 2) {
+    break;
+    case 2: //Logout
         session_start();
         unset($_SESSION["cliente"]);
         header("Location: ../views/index.php");
-    }
+    break;
+    case 3://cadastro
+        $cliente = new Cliente(
+            $_REQUEST["cpf"],
+            $_REQUEST["nome"],
+            $_REQUEST["logradouro"],
+            $_REQUEST["cidade"],
+            $_REQUEST["estado"],
+            $_REQUEST["cep"],
+            $_REQUEST["telefone"],
+            $_REQUEST["dataNascimento"],
+            $_REQUEST["email"],
+            $_REQUEST["senha"],
+            $_REQUEST["rg"],
+            isset($_REQUEST["tipo"]) ? $_REQUEST["tipo"] : "C"
+        );
+
+        $clienteDao->cadastrar($cliente);
+
+        header("Location: ../views/formLogin.php");
+    break;
+    case 4: //atualizar
+        $cliente = new Cliente(
+            $_REQUEST["cpf"],
+            $_REQUEST["nome"],
+            $_REQUEST["logradouro"],
+            $_REQUEST["cidade"],
+            $_REQUEST["estado"],
+            $_REQUEST["cep"],
+            $_REQUEST["telefone"],
+            $_REQUEST["dataNascimento"],
+            $_REQUEST["email"],
+            $_REQUEST["senha"],
+            $_REQUEST["rg"],
+            isset($_REQUEST["tipo"]) ? $_REQUEST["tipo"] : "C"
+        );
+
+        $clienteDao->atualizar($cliente);
+
+        session_start();
+        $_SESSION["cliente"] = $cliente;
+
+        header("Location: ../views/formClienteAtualizar.php");
+    break;
+    case 5: //excluir
+        $cpf = $_REQUEST["cpf"];
+        $clienteDao->excluir($cpf);
+
+        header("Location: controlerCliente.php?pOpcao=2");
+    break;
 }

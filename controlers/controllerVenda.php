@@ -1,6 +1,7 @@
 <?php
 require_once '../classes/venda.inc.php';
 require_once '../dao/vendaDAO.inc.php';
+require_once '../dao/produtoDAO.inc.php';
 
 $opcao = (int)$_REQUEST['opcao'];
 
@@ -14,8 +15,17 @@ switch ($opcao) {
         $total = $_SESSION['total'];
 
         $venda = new venda($cliente["cpf"], $total);
-        $dao = new vendaDAO();
-        $dao->incluirVenda($venda, $carrinho);
+
+        $daoVenda = new vendaDAO();
+        $daoProduto = new ProdutoDAO();
+
+        $daoVenda->incluirVenda($venda, $carrinho);
+        
+        foreach($carrinho as $item){
+            $produto = $item->getProduto();
+            $produto->setEstoque($produto->getEstoque() - $item->getQtd());
+            $daoProduto->atualizarProduto($produto);
+        }
 
         $tipo = $_REQUEST['pag'];
         unset($_SESSION['carrinho']);

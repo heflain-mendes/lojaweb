@@ -11,7 +11,7 @@ if(isset($_REQUEST["opcao"])) {
 }
 
 switch ($opcao) {
-    case 1: 
+    case 1: //Adicionar produto ao carrinho
         $id = $_REQUEST["id"];
 
         $prod = $produtoDAO->getProduto($id);
@@ -23,11 +23,12 @@ switch ($opcao) {
             $carrinho = [];
         }
 
+        //Verifica se o produto já está no carrinho
         $index = array_search2($item->getProduto()->getProdutoId(), $carrinho);
         if($index != -1){
             $key = array_search($item, $carrinho);
 
-            $carrinho[$key]->setQtd();
+            $carrinho[$key]->incrementaQtd();
             $carrinho[$key]->setValorItem();
         }else{
             $carrinho[] = $item;
@@ -36,7 +37,7 @@ switch ($opcao) {
         $_SESSION["carrinho"] = $carrinho;
         header("Location: ../views/exibirCarrinho.php");
         break;
-    case 2:
+    case 2://Remover produto do carrinho
         $index = (int)$_REQUEST['index'];
 
         session_start();
@@ -48,12 +49,12 @@ switch ($opcao) {
 
         header("Location: controllerCarrinho.php?opcao=4");
     break;
-    case 3:
+    case 3://Limpar carrinho
         session_start();
         unset($_SESSION["carrinho"]);
         header("Location: controllerProduto.php?opcao=6");
         break;
-    case 4:
+    case 4://Exibir carrinho
         session_start();
 
         if(!isset($_SESSION['carrinho']) || sizeof($_SESSION["carrinho"])==0){
@@ -62,7 +63,7 @@ switch ($opcao) {
             header("Location: ../views/exibirCarrinho.php");
         }
     break;
-    case 5:
+    case 5://Finalizar compra
         session_start();
 
         if(isset($_SESSION["cliente"])){
@@ -72,6 +73,25 @@ switch ($opcao) {
         }
 
         break;
+    case 6://atualizando quantidade de item
+        $id = $_REQUEST["id"];
+        $qtd = $_REQUEST["qtd"];
+        session_start();
+        $carrinho = $_SESSION["carrinho"];
+
+        $index = array_search2($id, $carrinho);
+
+        if($index != -1){
+            if($carrinho[$index]->getProduto()->getEstoque() < $qtd){
+                $qtd = $carrinho[$index]->getProduto()->getEstoque();
+            }
+            $carrinho[$index]->setQtd($qtd);
+            $carrinho[$index]->setValorItem();
+        }
+
+        $_SESSION["carrinho"] = $carrinho;
+        header("Location: ../views/exibirCarrinho.php");
+    break; 
 }
 
 function array_search2($chave, $vetor) {

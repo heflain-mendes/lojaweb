@@ -44,7 +44,14 @@ $carrinho = $_SESSION["carrinho"];
                     <td><?= $item->getProduto()->getNome() ?></td>
                     <td><?= $item->getProduto()->getNomeFabricante() ?></td>
                     <td>R$ <?= number_format($item->getProduto()->getPreco(), 2, ',', '.') ?></td>
-                    <td><?= $item->getQtd() ?></td>
+                    <td>
+                        <form action="../controlers/controllerCarrinho.php" class="d-flex" method="post">
+                            <input type="hidden" name="opcao" value="6">
+                            <input type="hidden" name="id" value="<?= $item->getProduto()->getProdutoId() ?>">
+                            <input type="number" class="form-control" style="max-width: 80px;" 
+                            name="qtd" value="<?= $item->getQtd() ?>" min="1" max="<?=$item->getProduto()->getEstoque()?>">
+                        </form>
+                    </td>
                     <td>R$ <?= number_format($item->getValorItem(), 2, ',', '.') ?></td>
                     <td><a href="../controlers/controllerCarrinho.php?opcao=2&index=<?= $contador - 1 ?>" class='btn btn-danger btn-sm'>X</a></td>
                 </tr>

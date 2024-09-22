@@ -8,7 +8,7 @@ switch ($opcao) {
         # code...
         break;
     case 2:
-    case 3:
+    case 3://Obter lista de fabricantes
         $fabricanteDAO = new FabricanteDAO();
 
         $lista = $fabricanteDAO->getFrabicantes();

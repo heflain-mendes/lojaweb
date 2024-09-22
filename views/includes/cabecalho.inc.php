@@ -1,3 +1,7 @@
+<?php
+  require_once "../classes/cliente.php";
+?>
+
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -12,7 +16,7 @@
     session_start();
     $tipo = "C";
     if(isset($_SESSION['cliente'])){
-      $tipo = $_SESSION['cliente']['tipo'];      
+      $tipo = $_SESSION['cliente']->tipo;      
     }
     require_once "menu" . $tipo . ".inc.php";
 ?>          

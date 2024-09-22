@@ -23,7 +23,11 @@ class Item {
         return $this->qtd;
     }
 
-    public function setQtd() {
+    public function setQtd(int $qtd) {
+        $this->qtd = $qtd;
+    }
+
+    public function incrementaQtd() {
         $this->qtd++;
     }
 
