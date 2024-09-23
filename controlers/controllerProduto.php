@@ -31,8 +31,8 @@ switch ($opc) {
         session_start();
         $_SESSION["produtos"] = $produtoDAO->getProdutos();
 
-        if ($opc == 2) header("Location: ../views/exibirProdutos.php");
-        else header("Location: ../views/produtosVenda.php");
+        if ($opc == 2) header("Location: ../restrito/exibirProdutos.php");
+        else header("Location: ../produtosVenda.php");
         break;
     case 3: //delete
         $id = $_REQUEST['id'];
@@ -81,7 +81,7 @@ function uploadFotos($ref)
         $imagem = $_FILES["imagem"];
         $nome_temporario = $_FILES["imagem"]['tmp_name'];
 
-        copy($nome_temporario, "../views/imagens/produtos/$ref.jpg");
+        copy($nome_temporario, "../restrito/imagens/produtos/$ref.jpg");
     } else {
         echo "Você não realizou o upload de forma satisfatória.";
     }
@@ -89,7 +89,7 @@ function uploadFotos($ref)
 
 function deleteFotos($ref)
 {
-    $arq = "../views/imagens/produtos/$ref.jpg";
+    $arq = "../restrito/imagens/produtos/$ref.jpg";
 
     if (file_exists($arq)) {
         if (!unlink($arq)) {

@@ -8,7 +8,7 @@
   if(isset($_SESSION["produto"])){
         $produto = $_SESSION["produto"];
   }else{
-        header("Location: index.php");
+        header("Location: ../index.php");
   }
   
   $fabricantes = $_SESSION["fabricantes"];

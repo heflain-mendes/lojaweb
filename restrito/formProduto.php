@@ -4,7 +4,7 @@
     if(isset($_SESSION["fabricantes"])){
       $fabricantes = $_SESSION["fabricantes"];
     }else{
-      header("Location: index.php");
+      header("Location: ../index.php");
     }
 ?>
 <p>

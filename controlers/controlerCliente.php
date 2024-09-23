@@ -24,19 +24,19 @@ switch( $opc ){
         } else {
 
             if (isset($_SESSION["carrinho"]) && sizeof($_SESSION["carrinho"]) > 0) {
-                header("Location: ../views/exibirCarrinho.php");
+                header("Location: ../exibirCarrinho.php");
             } else {
                 header("Location: controllerProduto.php?opcao=6");
             }
         }
     } else {
-        header("Location: ../views/formLogin.php?erro=1");
+        header("Location: ../formLogin.php?erro=1");
     }
     break;
     case 2: //Logout
         session_start();
         unset($_SESSION["cliente"]);
-        header("Location: ../views/index.php");
+        header("Location: ../index.php");
     break;
     case 3://cadastro
         $cliente = new Cliente(
@@ -56,7 +56,7 @@ switch( $opc ){
 
         $clienteDao->cadastrar($cliente);
 
-        header("Location: ../views/formLogin.php");
+        header("Location: ../formLogin.php");
     break;
     case 4: //atualizar
         $cliente = new Cliente(
@@ -79,7 +79,7 @@ switch( $opc ){
         session_start();
         $_SESSION["cliente"] = $cliente;
 
-        header("Location: ../views/formClienteAtualizar.php");
+        header("Location: ../restrito/formClienteAtualizar.php");
     break;
     case 5: //excluir
         $cpf = $_REQUEST["cpf"];

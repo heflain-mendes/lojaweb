@@ -31,7 +31,7 @@ switch ($opcao) {
         unset($_SESSION['carrinho']);
 
         if($tipo == "boleto"){
-            header("Location: ../views/boleto/meuBoleto.php");
+            header("Location: ../restrito/boleto/meuBoleto.php");
         }else{
             echo "Validar compra com cartão";
         }

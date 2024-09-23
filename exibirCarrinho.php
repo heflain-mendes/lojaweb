@@ -1,7 +1,7 @@
 <?php
-require_once '../classes/item.inc.php';
-require_once '../classes/produto.inc.php';
-require_once 'includes/cabecalho.inc.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/classes/item.inc.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/classes/produto.inc.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/restrito/includes/cabecalho.inc.php');
 
 $carrinho = [];
 if(isset($_SESSION["carrinho"])){
@@ -13,7 +13,7 @@ $carrinho = $_SESSION["carrinho"];
 <p>
     <?php
     if (isset($_REQUEST['status'])) {
-        include_once 'includes/carrinhoVazio.inc.php';
+        include_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/restrito/includes/carrinhoVazio.inc.php');
     } else {
     ?>
 <div class="table-responsive">
@@ -45,7 +45,7 @@ $carrinho = $_SESSION["carrinho"];
                     <td><?= $item->getProduto()->getNomeFabricante() ?></td>
                     <td>R$ <?= number_format($item->getProduto()->getPreco(), 2, ',', '.') ?></td>
                     <td>
-                        <form action="../controlers/controllerCarrinho.php" class="d-flex" method="post">
+                        <form action="/desweb/lojaweb/controlers/controllerCarrinho.php" class="d-flex" method="post">
                             <input type="hidden" name="opcao" value="6">
                             <input type="hidden" name="id" value="<?= $item->getProduto()->getProdutoId() ?>">
                             <input type="number" class="form-control" style="max-width: 80px;" 
@@ -53,7 +53,7 @@ $carrinho = $_SESSION["carrinho"];
                         </form>
                     </td>
                     <td>R$ <?= number_format($item->getValorItem(), 2, ',', '.') ?></td>
-                    <td><a href="../controlers/controllerCarrinho.php?opcao=2&index=<?= $contador - 1 ?>" class='btn btn-danger btn-sm'>X</a></td>
+                    <td><a href="/desweb/lojaweb/controlers/controllerCarrinho.php?opcao=2&index=<?= $contador - 1 ?>" class='btn btn-danger btn-sm'>X</a></td>
                 </tr>
             <?php
             }
@@ -68,13 +68,13 @@ $carrinho = $_SESSION["carrinho"];
     <div class="container text-center">
         <div class="row">
             <div class="col">
-                <a class="btn btn-warning" role="button" href="../controlers/controllerProduto.php?opcao=6"><b>Continuar comprando</b></a>
+                <a class="btn btn-warning" role="button" href="/desweb/lojaweb/controlers/controllerProduto.php?opcao=6"><b>Continuar comprando</b></a>
             </div>
             <div class="col">
-                <a class="btn btn-danger" role="button" href="../controlers/controllerCarrinho.php?opcao=3"><b>Esvaziar carrinho</b></a>
+                <a class="btn btn-danger" role="button" href="/desweb/lojaweb/controlers/controllerCarrinho.php?opcao=3"><b>Esvaziar carrinho</b></a>
             </div>
             <div class="col">
-                <a class="btn btn-success" role="button" href="../controlers/controllerCarrinho.php?opcao=5"><b>Finalizar compra</b></a>
+                <a class="btn btn-success" role="button" href="/desweb/lojaweb/controlers/controllerCarrinho.php?opcao=5"><b>Finalizar compra</b></a>
             </div>
         </div>
     </div>
@@ -82,5 +82,5 @@ $carrinho = $_SESSION["carrinho"];
 <?php
     $_SESSION["total"] = $soma;
     }
-    require_once 'includes/rodape.inc.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/restrito/includes/rodape.inc.php';
 ?>

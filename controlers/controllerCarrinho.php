@@ -35,7 +35,7 @@ switch ($opcao) {
         }
 
         $_SESSION["carrinho"] = $carrinho;
-        header("Location: ../views/exibirCarrinho.php");
+        header("Location: ../exibirCarrinho.php");
         break;
     case 2://Remover produto do carrinho
         $index = (int)$_REQUEST['index'];
@@ -58,18 +58,18 @@ switch ($opcao) {
         session_start();
 
         if(!isset($_SESSION['carrinho']) || sizeof($_SESSION["carrinho"])==0){
-            header("Location: ../views/exibirCarrinho.php?status=1");
+            header("Location: ../exibirCarrinho.php?status=1");
         }else{
-            header("Location: ../views/exibirCarrinho.php");
+            header("Location: ../exibirCarrinho.php");
         }
     break;
     case 5://Finalizar compra
         session_start();
 
         if(isset($_SESSION["cliente"])){
-            header("Location: ../views/dadosCompra.php");
+            header("Location: ../restrito/dadosCompra.php");
         }else{
-            header("Location: ../views/formLogin.php?em_compra=1"); 
+            header("Location: ../formLogin.php?em_compra=1"); 
         }
 
         break;
@@ -90,7 +90,7 @@ switch ($opcao) {
         }
 
         $_SESSION["carrinho"] = $carrinho;
-        header("Location: ../views/exibirCarrinho.php");
+        header("Location: ../exibirCarrinho.php");
     break; 
 }
 

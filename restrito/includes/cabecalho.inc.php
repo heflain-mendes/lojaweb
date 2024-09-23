@@ -1,5 +1,5 @@
 <?php
-  require_once "../classes/cliente.php";
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/classes/cliente.php');
 ?>
 
 <!doctype html>

@@ -3,9 +3,7 @@
       require_once "../utils/funcoesUteis.php";
       require_once "includes/cabecalho.inc.php";
       
-      $produtos = [];
-      
-      header("Location: index.php");
+      $produtos = isset($_SESSION['produtos']) ? $_SESSION['produtos'] : array();
 ?>
 <p>
 <h1 class="text-center">Produtos do estoque</h1>

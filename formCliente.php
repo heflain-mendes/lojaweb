@@ -1,4 +1,4 @@
-<?php require_once "includes/cabecalho.inc.php" ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/restrito/includes/cabecalho.inc.php')?>
 
 <!-- CONTEUDO -->
 <h1 class="text-center">Cadastro de Usuário</h1>
@@ -11,7 +11,7 @@
             </div>
             <div class="card-body p-4 p-sm-5">
                 <h5 class="card-title text-center mb-5 fw-light fs-5">Entre com suas informações de Cadastro</h5>
-                <form action="../controlers/controlerCliente.php" method="get">
+                <form action="/desweb/lojaweb/controlers/controlerCliente.php" method="get">
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" minlength="3" maxlength="50" id="floatingInputNome" placeholder="José" name="nome" required>
@@ -88,8 +88,8 @@
     </div>
 </div>
 
-<script src="includes/scripts/validacoesFormUsuario.js"></script>
+<script src="/desweb/lojaweb/restrito/includes/scripts/validacoesFormUsuario.js"></script>
 
 <!-- Rodape -->
 
-<?php require_once "includes/rodape.inc.php" ?>
+<?php require_once($_SERVER['DOCUMENT_ROOT'] . '/desweb/lojaweb/restrito/includes/rodape.inc.php')?>
